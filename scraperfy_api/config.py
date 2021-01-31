@@ -15,9 +15,10 @@ class DevelopmentConfig(BaseConfig):
         "DEV_SECRET_KEY", "And I knew exactly what to do. But in a much more real sense, I had no idea what to do."
     )
     DEBUG = True
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy-dev?charset=utf8mb4'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_dev?charset=utf8mb4'
+    SQLALCHEMY_ECHO = True
 
 class TestingConfig(BaseConfig):
     CONFIG_NAME = 'test'
@@ -25,9 +26,10 @@ class TestingConfig(BaseConfig):
         "TEST_SECRET_KEY", "Make friends first, make sales second, make love third. In no particular order."
     )
     DEBUG = True
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy-test?charset=utf8mb4'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_test?charset=utf8mb4'
+    SQLALCHEMY_ECHO = True
 
 class ProductionConfig(BaseConfig):
     CONFIG_NAME = 'prod'
@@ -37,7 +39,8 @@ class ProductionConfig(BaseConfig):
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy-prod?charset=utf8mb4'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_prod?charset=utf8mb4'
+    SQLALCHEMY_ECHO = False
 
 EXPORT_CONFIGS: List[Type[BaseConfig]] = [
     DevelopmentConfig,
