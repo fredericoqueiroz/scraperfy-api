@@ -1,10 +1,9 @@
 import pytest
-
-from scraperfy_api import create_app
+from app import create_app
 
 @pytest.fixture
 def app():
-    return create_app('test')
+    return create_app()
 
 @pytest.fixture
 def client(app):
@@ -12,7 +11,7 @@ def client(app):
 
 @pytest.fixture
 def db(app):
-    from scraperfy_api import db
+    from app import db
     
     with app.app_context():
         db.drop_all()

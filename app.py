@@ -2,10 +2,10 @@ import logging
 import os
 
 from flask import Flask, jsonify
-from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 import config
+from scraperfy_api import scraperfy_api
 
 logging.basicConfig(level=logging.DEBUG,
                     format='[%(asctime)s]: {} %(levelname)s %(message)s'.format(os.getpid()),
@@ -23,11 +23,8 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object('config')
-
-    api = Api(app, version='1.0', title='Scraperfy API',
-        description='A RESTful API that serves data from the Scraperfy Package'
-    )
-
+    scraperfy_api.init_app(app)
+    
     # initialize SQLAlchemy
     db.init_app(app)
 
