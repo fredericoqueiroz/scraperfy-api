@@ -17,5 +17,5 @@ def db(app):
         db.drop_all()
         db.create_all()
         yield db
-        db.drop_all()
+        #db.drop_all()
         db.session.commit()
