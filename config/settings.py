@@ -7,7 +7,7 @@ class BaseConfig():
 class DevConfig(BaseConfig):
     FLASK_ENV = 'development'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_dev'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_dev?charset=utf8mb4'
     SQLALCHEMY_ECHO = True
 
 class TestConfig(BaseConfig):
