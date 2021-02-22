@@ -14,11 +14,13 @@ class CurrentPriceService:
 
     @staticmethod
     def get_by_id(asset_id: int) -> CurrentPrice:
-        return CurrentPrice.query.get(asset_id)
+        #return CurrentPrice.query.get(asset_id)
+        return CurrentPrice.query.filter(CurrentPrice.asset_id == asset_id).first()
     
     @staticmethod
     def get_by_symbol(asset_symbol: str) -> CurrentPrice:
-        return CurrentPrice.query.get(asset_symbol)
+        #return CurrentPrice.query.get(asset_symbol.upper())
+        return CurrentPrice.query.filter(CurrentPrice.asset_symbol == asset_symbol.upper()).first()
     
     @staticmethod
     def update(current_price: CurrentPrice, current_price_change: CurrentPriceInterface) -> CurrentPrice:
@@ -33,11 +35,11 @@ class CurrentPriceService:
             return []
         db.session.delete(cp)
         db.session.commit()
-        return [asset_symbol]
+        return [asset_symbol.upper()]
     
     @staticmethod
     def create(new_attrs: CurrentPriceInterface) -> CurrentPrice:
-        new_cp = CurrentPrice(asset_symbol=new_attrs['asset_symbol'],
+        new_cp = CurrentPrice(asset_symbol=new_attrs['asset_symbol'].upper(),
                             asset_price=new_attrs['asset_price'],
                             asset_oscilation=new_attrs['asset_oscilation'])
         

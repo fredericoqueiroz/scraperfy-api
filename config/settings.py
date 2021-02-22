@@ -1,5 +1,5 @@
 class BaseConfig():
-    API_PREFIX = '/scraperfy'
+    #API_PREFIX = '/api'
     TESTING = False
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False

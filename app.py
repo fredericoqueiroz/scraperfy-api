@@ -19,11 +19,15 @@ db = SQLAlchemy()
 
 
 def create_app():
+    from scraperfy_api.routes import register_routes
+
     logger.info(f'Starting app in {config.APP_ENV} environment')
 
     app = Flask(__name__)
     app.config.from_object('config')
     scraperfy_api.init_app(app)
+
+    register_routes(scraperfy_api, app)
     
     # initialize SQLAlchemy
     db.init_app(app)
