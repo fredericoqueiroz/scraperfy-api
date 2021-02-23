@@ -28,7 +28,7 @@ class TestCurrentPriceResource:
     )
     def test_get(self, client: FlaskClient):
         with client:
-            results = client.get(f'/api/{BASE_ROUTE}', follow_redirects=True).get_json()
+            results = client.get(f'/scraperfy/{BASE_ROUTE}', follow_redirects=True).get_json()
             expected = (
                 CurrentPriceSchema(many=True)
                 .dump(
@@ -49,7 +49,7 @@ class TestCurrentPriceResource:
     def test_post(self, client: FlaskClient):
         with client:
             payload = dict(assetSymbol='IBOV', assetPrice=112787.81, assetOscilation=-4.76)
-            result = client.post(f'/api/{BASE_ROUTE}/', json=payload).get_json()
+            result = client.post(f'/scraperfy/{BASE_ROUTE}/', json=payload).get_json()
             expected = (
                 CurrentPriceSchema()
                 .dump(CurrentPrice(
@@ -79,13 +79,13 @@ class TestCurrentPriceSymbolResource:
     )
     def test_get(self, client: FlaskClient):
         with client:
-            result = client.get(f'/api/{BASE_ROUTE}/TEST SYMBOL').get_json()
+            result = client.get(f'/scraperfy/{BASE_ROUTE}/TEST SYMBOL').get_json()
             expected = make_current_price(symbol='Test symbol')
             assert result['assetSymbol'] == expected.asset_symbol
 
     @patch.object(CurrentPriceService, 'delete_by_symbol', lambda symbol: symbol.upper())
     def test_delete(self, client: FlaskClient):
-        result = client.delete(f'/api/{BASE_ROUTE}/Test Symbol').get_json()
+        result = client.delete(f'/scraperfy/{BASE_ROUTE}/Test Symbol').get_json()
         expected = dict(status='Success', symbol='TEST SYMBOL')
         assert result == expected
 
@@ -97,7 +97,7 @@ class TestCurrentPriceSymbolResource:
     @patch.object(CurrentPriceService, 'update', fake_update)
     def test_put(self, client: FlaskClient):
         result = client.put(
-            f'/api/{BASE_ROUTE}/Test Symbol',
+            f'/scraperfy/{BASE_ROUTE}/Test Symbol',
             json={
                 "assetSymbol": "New Asset",
                 "assetPrice": 112033.02,

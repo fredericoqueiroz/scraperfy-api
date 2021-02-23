@@ -10,7 +10,7 @@ from .model import CurrentPrice
 from .schema import CurrentPriceSchema
 from .service import CurrentPriceService
 
-api = Namespace('CurrentPrice', description='Current intraday asset price')
+api = Namespace('CurrentPrice', description='Current intraday asset prices')
 
 @api.route('/')
 class CurrentePriceResource(Resource):
