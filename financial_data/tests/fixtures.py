@@ -1,5 +1,5 @@
 import pytest
-from app import create_app
+from financial_data.app import create_app
 
 @pytest.fixture
 def app():
@@ -11,7 +11,7 @@ def client(app):
 
 @pytest.fixture
 def db(app):
-    from app import db
+    from financial_data.extensions.database import db
     
     with app.app_context():
         db.drop_all()

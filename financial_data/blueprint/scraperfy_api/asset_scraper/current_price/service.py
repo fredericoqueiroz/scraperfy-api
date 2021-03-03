@@ -1,11 +1,11 @@
-from sqlalchemy.orm import query
-from scraperfy_api.asset_scraper import current_price
 from typing import List
 
-from app import db
+from financial_data.extensions.database import db
+from sqlalchemy.orm import query
 
 from .interface import CurrentPriceInterface
 from .model import CurrentPrice
+
 
 class CurrentPriceService:
     @staticmethod

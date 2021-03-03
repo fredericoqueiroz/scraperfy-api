@@ -1,0 +1,27 @@
+[default]
+TITLE = 'Financial Data'
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_dev?charset=utf8mb4'
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+SQLALCHEMY_ECHO = false
+EXTENSIONS = [
+    'financial_data.extensions.appearance:init_app',
+    'financial_data.extensions.commands:init_app',
+    'financial_data.extensions.database:init_app',
+    'financial_data.blueprint.webui:init_app',
+    'financial_data.blueprint.scraperfy_api:init_app',
+]
+
+[development]
+SQLALCHEMY_ECHO = true
+TEMPLATES_AUTO_RELOAD = true
+DEBUG = true
+
+[testing]
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_test?charset=utf8mb4'
+SQLALCHEMY_ECHO = true
+DEBUG = true
+
+[production]
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://fred:fred@localhost/scraperfy_prod?charset=utf8mb4'
+

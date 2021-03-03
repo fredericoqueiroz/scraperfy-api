@@ -1,7 +1,7 @@
 from typing import List
 
 from flask_sqlalchemy import SQLAlchemy
-from scraperfy_api.test.fixtures import app, db
+from financial_data.tests.fixtures import app, db
 
 from .interface import CurrentPriceInterface
 from .model import CurrentPrice

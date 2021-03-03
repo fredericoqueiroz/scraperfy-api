@@ -4,8 +4,8 @@ from .schema import CurrentPriceSchema
 BASE_ROUTE = 'currentPrice'
 
 
-def register_routes(api, app, root='scraperfy'):
+def register_routes(api):
     from .controller import api as current_price_api
 
-    api.add_namespace(current_price_api, path=f'/{root}/{BASE_ROUTE}')
+    api.add_namespace(current_price_api, path=f'/{BASE_ROUTE}')
 

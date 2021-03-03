@@ -1,4 +1,4 @@
-from app import db
+from financial_data.extensions.database import db
 from sqlalchemy import Column, Float, Integer, String
 
 from .interface import CurrentPriceInterface

@@ -8,4 +8,3 @@ class CurrentPriceSchema(Schema):
     assetSymbol = fields.String(attribute='asset_symbol')
     assetPrice = fields.Float(attribute='asset_price')
     assetOscilation = fields.Float(attribute='asset_oscilation')
-

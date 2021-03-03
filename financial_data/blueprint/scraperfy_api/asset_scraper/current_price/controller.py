@@ -20,7 +20,7 @@ class CurrentePriceResource(Resource):
         '''Get all Prices'''
         return CurrentPriceService.get_all()
 
-    @accepts(schema=CurrentPriceSchema, api=api)
+    @accepts(model_name="CurrentPrice", schema=CurrentPriceSchema, api=api)
     @responds(schema=CurrentPriceSchema)
     def post(self) -> CurrentPrice:
         '''Create a single Price'''
@@ -51,4 +51,3 @@ class CurrentPriceSymbolResource(Resource):
         changes: CurrentPriceInterface = request.parsed_obj
         CurrentPrice = CurrentPriceService.get_by_symbol(assetSymbol)
         return CurrentPriceService.update(CurrentPrice, changes)
-
