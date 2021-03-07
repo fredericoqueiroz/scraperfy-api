@@ -20,7 +20,7 @@ class CurrentePriceResource(Resource):
         '''Get all Prices'''
         return CurrentPriceService.get_all()
 
-    @accepts(model_name="CurrentPrice", schema=CurrentPriceSchema, api=api)
+    @accepts(schema=CurrentPriceSchema, api=api)
     @responds(schema=CurrentPriceSchema)
     def post(self) -> CurrentPrice:
         '''Create a single Price'''
