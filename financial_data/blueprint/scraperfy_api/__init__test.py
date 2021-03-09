@@ -3,5 +3,5 @@ from . import URL_PREFIX
 
 def test_api_healthy(client):
     with client:
-        response = client.get(URL_PREFIX)
+        response = client.get(f'{URL_PREFIX}/')
         assert response.status_code == 200

@@ -1,3 +1,6 @@
+# celery files
+celerybeat*
+
 ## pipenv files
 Pipfile
 Pipfile.lock

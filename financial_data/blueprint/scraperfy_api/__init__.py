@@ -3,7 +3,7 @@ from flask_restx import Api
 
 from .routes import register_routes
 
-URL_PREFIX = '/api/v1/scraperfy/'
+URL_PREFIX = '/api/v1/scraperfy'
 
 bp = Blueprint('scraperfy_api', __name__, url_prefix=URL_PREFIX)
 
