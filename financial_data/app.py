@@ -14,6 +14,6 @@ def minimal_app(**config):
 
 def create_app(**config):
     app = minimal_app(**config)
-    init_celery(celery, app)
+    #init_celery(celery, app)
     app.config.load_extensions()
     return app

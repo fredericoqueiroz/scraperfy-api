@@ -4,11 +4,17 @@ from . import celery
 
 PATH = "C:/Program Files (x86)/chromedriver.exe"
 
-def get_current_price_task(asset):
+@celery.task(name='current_price_task')
+def get_current_price_task():
 
     op = webdriver.ChromeOptions()
     op.add_argument('headless')
 
     driver = webdriver.Chrome(PATH, options=op)
 
-    return cp.CurrentPrice(driver, asset)
+    current_price = cp.CurrentPrice(driver, 'IBOV')
+    return current_price.print_asset_data()
+
+@celery.task(name='smoke_task')
+def smoke_task():
+    print("Running smoke test...")

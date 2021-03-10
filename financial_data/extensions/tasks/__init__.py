@@ -1,5 +1,6 @@
 from celery import Celery
 
+
 def make_celery(app_name=__name__):
     celery = Celery(
         app_name,
@@ -21,13 +22,3 @@ def init_celery(celery, app):
                 return TaskBase.__call__(self, *args, **kwargs)
 
     celery.Task = ContextTask
-
-
-@celery.task(name='smoke_task')
-def smoke_task():
-    print("Running smoke test...")
-
-
-@celery.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(10.0, smoke_task, name='smoke task')
