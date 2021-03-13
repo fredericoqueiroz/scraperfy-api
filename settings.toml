@@ -9,7 +9,7 @@ EXTENSIONS = [
     'financial_data.extensions.database:init_app',
     'financial_data.blueprint.webui:init_app',
 ]
-CELERY_BROKER_URL = 'amqp://localhost//'
+CELERY_BROKER_URL = 'amqp://localhost:5672//'
 RESULT_BACKEND = 'db+mysql+pymysql://fred:fred@localhost/tasks?charset=utf8mb4'
 
 [development]
