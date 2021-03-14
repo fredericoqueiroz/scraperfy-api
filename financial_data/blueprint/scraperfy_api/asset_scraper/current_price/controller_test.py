@@ -1,3 +1,4 @@
+import datetime
 from unittest.mock import patch
 
 from financial_data.blueprint.scraperfy_api import URL_PREFIX
@@ -12,9 +13,12 @@ from .service import CurrentPriceService
 
 
 def make_current_price(
-    id: int = 123, symbol: str = 'Test symbol', price: float = 123.45, oscilation: float = -12.34
+    id: int = 123, symbol: str = 'Test symbol', price: float = 123.45,
+    oscilation: float = -12.34, date: datetime.date = datetime.date(2021,1,20), time: datetime.time = datetime.time(13,22,30)
 ) -> CurrentPrice:
-    return CurrentPrice(asset_id=id, asset_symbol=symbol.upper(), asset_price=price, asset_oscilation=oscilation)
+    return CurrentPrice(asset_id=id, asset_symbol=symbol.upper(),
+                        asset_price=price, asset_oscilation=oscilation,
+                        search_date=date, search_time=time)
 
 
 class TestCurrentPriceResource:

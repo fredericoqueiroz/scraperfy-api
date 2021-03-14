@@ -15,9 +15,12 @@ def get_current_price_task(asset):
 
     price = cp.CurrentPrice(driver, asset)
 
-    new_cp = CurrentPrice(asset_symbol=price.asset_symbol.upper(),
-                        asset_price=price.asset_price,
-                        asset_oscilation=price.asset_oscilation)
+    new_cp = CurrentPrice(asset_symbol=price.get_asset_symbol(),
+                        asset_price=price.get_asset_price(),
+                        asset_oscilation=price.get_asset_oscilation(),
+                        search_date=price.get_search_date(),
+                        search_time=price.get_search_time()
+                        )
 
     with flask_app.app_context():
         db.session.add(new_cp)

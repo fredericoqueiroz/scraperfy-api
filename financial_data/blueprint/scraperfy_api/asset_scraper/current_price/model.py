@@ -1,5 +1,5 @@
 from financial_data.extensions.database import db
-from sqlalchemy import Column, Float, Integer, String
+from sqlalchemy import Column, Float, Integer, String, Date, Time
 
 from .interface import CurrentPriceInterface
 
@@ -12,8 +12,8 @@ class CurrentPrice(db.Model):
     asset_symbol = Column(String(10), primary_key=True)
     asset_price = Column(Float())
     asset_oscilation = Column(Float())
-    #search_date = db.Column(db.Date)
-    #search_time = db.Column(db.Time)
+    search_date = db.Column(Date())
+    search_time = db.Column(Time())
 
     def __repr__(self):
         return '<Asset %r>' % self.asset_symbol
