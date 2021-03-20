@@ -1,4 +1,3 @@
-from re import search
 from marshmallow import Schema, fields
 
 

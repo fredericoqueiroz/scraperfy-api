@@ -1,5 +1,7 @@
 from pytest import fixture
+
 from .model import CurrentPrice
+
 
 @fixture
 def current_price() -> CurrentPrice:

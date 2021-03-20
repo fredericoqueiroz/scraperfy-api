@@ -1,13 +1,13 @@
 from typing import List
 
 from financial_data.extensions.database import db
-from sqlalchemy.orm import query
 
 from .interface import CurrentPriceInterface
 from .model import CurrentPrice
 
 
 class CurrentPriceService:
+
     @staticmethod
     def get_all() -> List[CurrentPrice]:
         return CurrentPrice.query.all()
@@ -37,11 +37,12 @@ class CurrentPriceService:
     
     @staticmethod
     def create(new_attrs: CurrentPriceInterface) -> CurrentPrice:
-        new_cp = CurrentPrice(asset_symbol=new_attrs['asset_symbol'].upper(),
-                            asset_price=new_attrs['asset_price'],
-                            asset_oscilation=new_attrs['asset_oscilation'],
-                            search_date=new_attrs['search_date'],
-                            search_time=new_attrs['search_time']
+        new_cp = CurrentPrice(
+                                asset_symbol=new_attrs['asset_symbol'].upper(),
+                                asset_price=new_attrs['asset_price'],
+                                asset_oscilation=new_attrs['asset_oscilation'],
+                                search_date=new_attrs['search_date'],
+                                search_time=new_attrs['search_time']
                             )
         
         db.session.add(new_cp)

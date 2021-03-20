@@ -17,13 +17,15 @@ def test_current_price_schema_create(schema: CurrentPriceSchema):
 
 
 def test_current_price_schema_works(schema: CurrentPriceSchema):
+    
     params: CurrentPriceInterface = schema.load(
-        {'assetId': '12345',
-         'assetSymbol': 'VGIP11',
-         'assetPrice': '114.92',
-         'assetOscilation': '+0.33',
-         'searchDate': '2021-01-20',
-         'searchTime': '16:20:00'
+        {
+            'assetId': '12345',
+            'assetSymbol': 'VGIP11',
+            'assetPrice': '114.92',
+            'assetOscilation': '+0.33',
+            'searchDate': '2021-01-20',
+            'searchTime': '16:20:00'
         }
     )
 

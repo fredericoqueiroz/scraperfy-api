@@ -28,7 +28,7 @@ def test_get_all(db: SQLAlchemy):
 
 def test_update(db: SQLAlchemy):
 
-    asset : CurrentPrice = CurrentPrice(asset_id=1, asset_symbol='RBRP11', asset_price=96.00,
+    asset: CurrentPrice = CurrentPrice(asset_id=1, asset_symbol='RBRP11', asset_price=96.00,
                                         asset_oscilation=+0.18, search_date='2021-01-20', search_time='11:20:21')
 
     db.session.add(asset)

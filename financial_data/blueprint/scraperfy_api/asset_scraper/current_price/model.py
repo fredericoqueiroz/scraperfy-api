@@ -9,11 +9,11 @@ class CurrentPrice(db.Model):
     __tablename__ = 'current_price'
 
     asset_id = Column(Integer(), primary_key=True, autoincrement=True)
-    asset_symbol = Column(String(10), primary_key=True)
+    asset_symbol = Column(String(10), primary_key=True, index=True)
     asset_price = Column(Float())
     asset_oscilation = Column(Float())
-    search_date = db.Column(Date())
-    search_time = db.Column(Time())
+    search_date = Column(Date())
+    search_time = Column(Time())
 
     def __repr__(self):
         return '<Asset %r>' % self.asset_symbol

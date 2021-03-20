@@ -1,6 +1,8 @@
 from pytest import fixture
-from .model import CurrentPrice
+
 from .interface import CurrentPriceInterface
+from .model import CurrentPrice
+
 
 @fixture
 def interface() -> CurrentPriceInterface:

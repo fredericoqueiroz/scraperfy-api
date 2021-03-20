@@ -1,5 +1,3 @@
-from .model import CurrentPrice
-from .schema import CurrentPriceSchema
 
 BASE_ROUTE = '/currentPrice'
 
