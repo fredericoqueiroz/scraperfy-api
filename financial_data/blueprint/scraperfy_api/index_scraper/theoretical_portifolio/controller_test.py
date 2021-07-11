@@ -14,7 +14,7 @@ from .service import TheoreticalPortifolioService
 
 
 def make_theoretical_portifolio(
-    index: str = 'IBOV', symbol: str = 'BRAP4', name: str = 'BRADESPAR',
+    index: str = 'IBOV', symbol: str = 'PETR4', name: str = 'BRADESPAR',
     type: str = 'PN N1', quantity: str = '222.075.664', share: str = '0,672',
     date: datetime.date = datetime.date(2021,1,20)
 ) -> TheoreticalPortifolio:

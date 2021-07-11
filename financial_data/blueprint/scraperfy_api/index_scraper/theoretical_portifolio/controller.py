@@ -42,9 +42,9 @@ class TheoreticalPortifolioIndexResouce(Resource):
         idx = TheoreticalPortifolioService.delete_by_index(index)
         return jsonify(dict(statis='Success', index=idx))
 
-#@api.route('/<string:index>/<string:assetSymbol>')
-#@api.param('index', 'Index symbol')
-#@api.param('assetSymbol', 'Asset Symbol')
+@api.route('/<string:index>/<string:assetSymbol>')
+@api.param('index', 'Index symbol')
+@api.param('assetSymbol', 'Asset Symbol')
 class TheoreticalPortifolioIndexSymbolResource(Resource):
 
     @responds(schema=TheoreticalPortifolioSchema)
