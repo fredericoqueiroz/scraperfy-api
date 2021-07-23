@@ -14,11 +14,11 @@ from .service import TheoreticalPortifolioService
 
 
 def make_theoretical_portifolio(
-    index: str = 'IBOV', symbol: str = 'PETR4', name: str = 'BRADESPAR',
+    index: str = 'IBOV', asset: str = 'PETR4', name: str = 'BRADESPAR',
     type: str = 'PN N1', quantity: str = '222.075.664', share: str = '0,672',
     date: datetime.date = datetime.date(2021,1,20)
 ) -> TheoreticalPortifolio:
-    return TheoreticalPortifolio(index=index, asset_symbol=symbol,asset_name=name,
+    return TheoreticalPortifolio(index_symbol=index, asset_symbol=asset,asset_name=name,
                                 asset_type=type, theoretical_quantity=quantity,
                                 percentage_share=share, portifolio_date=date)
 
@@ -29,8 +29,8 @@ class TestTheoreticalPortifolioResource:
         TheoreticalPortifolioService,
         'get_all',
         lambda: [
-            make_theoretical_portifolio('IBOV', symbol='PETR4'),
-            make_theoretical_portifolio('IFIX', symbol='RBRP11'),
+            make_theoretical_portifolio('IBOV', asset='PETR4'),
+            make_theoretical_portifolio('IFIX', asset='RBRP11'),
         ]
     )
     def test_get(self, client: FlaskClient):
@@ -40,8 +40,8 @@ class TestTheoreticalPortifolioResource:
                 TheoreticalPortifolioSchema(many=True)
                 .dump(
                     [
-                        make_theoretical_portifolio('IBOV', symbol='PETR4'),
-                        make_theoretical_portifolio('IFIX', symbol='RBRP11'),
+                        make_theoretical_portifolio('IBOV', asset='PETR4'),
+                        make_theoretical_portifolio('IFIX', asset='RBRP11'),
                     ]
                 )
             )
@@ -56,7 +56,7 @@ class TestTheoreticalPortifolioResource:
     def test_post(self, client: FlaskClient):
         with client:
             payload = dict(
-                index='IBOV', assetSymbol='B3SA3', assetType='ON NM',
+                indexSymbol='IBOV', assetSymbol='B3SA3', assetType='ON NM',
                 assetName='B3', theoreticalQuantity='1.930.877.944',
                 portifolioDate='2021-01-20', percentageShare='4,849'
             )
@@ -64,7 +64,7 @@ class TestTheoreticalPortifolioResource:
             expected = (
                 TheoreticalPortifolioSchema()
                 .dump(TheoreticalPortifolio(
-                    index = payload['index'],
+                    index_symbol = payload['indexSymbol'],
                     asset_symbol = payload['assetSymbol'],
                     asset_name = payload['assetName'],
                     asset_type = payload['assetType'],
@@ -78,7 +78,7 @@ class TestTheoreticalPortifolioResource:
 def fake_update(asset: TheoreticalPortifolio, changes: TheoreticalPortifolioInterface) -> TheoreticalPortifolio:
     '''To simulate an update, just return a new object'''
     updated_asset = TheoreticalPortifolio(
-        index = asset.index.upper(),
+        index_symbol = asset.index_symbol.upper(),
         asset_symbol = changes['asset_symbol'].upper(),
         asset_name = changes['asset_name'].upper(),
         theoretical_quantity = changes['theoretical_quantity'],
@@ -92,30 +92,30 @@ class TestTheoreticalPortifolioIndexSymbolResource:
 
     @patch.object(
         TheoreticalPortifolioService,
-        'get_by_index_and_symbol',
-        lambda index, symbol: make_theoretical_portifolio(index=index, symbol=symbol)
+        'get_by_index_and_asset',
+        lambda index, asset: make_theoretical_portifolio(index=index, asset=asset)
     )
     def test_get(self, client: FlaskClient):
         with client:
             result = client.get(f'{URL_PREFIX}{BASE_ROUTE}/IFIX/VGIP11').get_json()
-            expected = make_theoretical_portifolio(index='IFIX', symbol='VGIP11')
-            assert result['index'] == expected.index
+            expected = make_theoretical_portifolio(index='IFIX', asset='VGIP11')
+            assert result['indexSymbol'] == expected.index_symbol
             assert  result['assetSymbol'] == expected.asset_symbol
 
     @patch.object(
         TheoreticalPortifolioService,
-        'delete_by_index_and_symbol',
-        lambda index, symbol: [index.upper(),symbol.upper()],
+        'delete_by_index_and_asset',
+        lambda index, asset: [index.upper(),asset.upper()],
     )
     def test_delete(self, client: FlaskClient):
         result = client.delete(f'{URL_PREFIX}{BASE_ROUTE}/ifix/vgip11').get_json()
-        expected = dict(status='Success', index='IFIX', symbol='VGIP11')
+        expected = dict(status='Success', indexSymbol='IFIX', assetSymbol='VGIP11')
         assert result == expected
 
     @patch.object(
         TheoreticalPortifolioService,
-        'get_by_index_and_symbol',
-        lambda index, symbol: make_theoretical_portifolio(index=index, symbol=symbol)
+        'get_by_index_and_asset',
+        lambda index, asset: make_theoretical_portifolio(index=index, asset=asset)
     )
     @patch.object(TheoreticalPortifolioService,'update',fake_update)
     def test_put(self, client: FlaskClient):
@@ -134,7 +134,7 @@ class TestTheoreticalPortifolioIndexSymbolResource:
             TheoreticalPortifolioSchema()
             .dump(
                 TheoreticalPortifolio(
-                    index = 'IBOV',
+                    index_symbol = 'IBOV',
                     asset_symbol = 'BBAS3',
                     asset_name = 'BRASIL',
                     asset_type = 'PN N1',

@@ -7,16 +7,16 @@ class TheoreticalPortifolio(db.Model):
 
     __tablename__ = 'theoretical_portifolio'
 
-    index = Column(String(10), primary_key=True, index=True)
+    index_symbol = Column(String(10), primary_key=True, index=True)
+    portifolio_date = Column(Date(), primary_key=True, index=True)
     asset_symbol = Column(String(10), primary_key=True, index=True)
     asset_name = Column(String(20))
     asset_type = Column(String(20))
     theoretical_quantity = Column(String(32))
     percentage_share = Column(String(10))
-    portifolio_date = Column(Date())
 
     def __repr__(self):
-        return '<Index %r>' % self.index
+        return '<IndexSymbol %r>' % self.index_symbol
 
     def update(self, changes: TheoreticalPortifolioInterface):
         for key, val in changes.items():

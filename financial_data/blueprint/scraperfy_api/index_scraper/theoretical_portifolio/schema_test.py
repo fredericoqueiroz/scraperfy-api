@@ -1,6 +1,5 @@
 import datetime
 
-from _pytest.mark import param
 from pytest import fixture
 
 from .interface import TheoreticalPortifolioInterface
@@ -20,22 +19,22 @@ def test_theoretical_portifolio_schema_works(schema: TheoreticalPortifolioSchema
     
     params: TheoreticalPortifolioInterface = schema.load(
         {
-            'index': 'IFIX',
+            'indexSymbol': 'IFIX',
+            'portifolioDate': '2021-01-20',
             'assetSymbol': 'BCFF11',
             'assetName': 'FII BC FFII',
             'assetType': 'CI ERS',
             'theoreticalQuantity': '26.921.354',
-            'percentageShare': '2,629',
-            'portifolioDate': '2021-01-20'
+            'percentageShare': '2,629'
         }
     )
 
     tp = TheoreticalPortifolio(**params)
 
-    assert tp.index == 'IFIX'
+    assert tp.index_symbol == 'IFIX'
+    assert tp.portifolio_date == datetime.date(2021, 1, 20)
     assert tp.asset_symbol == 'BCFF11'
     assert tp.asset_name == 'FII BC FFII'
     assert tp.asset_type == 'CI ERS'
     assert tp.theoretical_quantity == '26.921.354'
     assert tp.percentage_share == '2,629'
-    assert tp.portifolio_date == datetime.date(2021, 1, 20)

@@ -26,45 +26,45 @@ class TheoreticalPortifolioResource(Resource):
         '''Create a single asset in a portifolio'''
         return TheoreticalPortifolioService.create(request.parsed_obj)
 
-@api.route('/<string:index>')
-@api.param('index', 'Index symbol')
+@api.route('/<string:indexSymbol>')
+@api.param('indexSymbol', 'Index symbol')
 class TheoreticalPortifolioIndexResouce(Resource):
 
     @responds(schema=TheoreticalPortifolioSchema)
-    def get(self, index: str) -> List[TheoreticalPortifolio]:
+    def get(self, indexSymbol: str) -> List[TheoreticalPortifolio]:
         '''Get all assets in a portifolio'''
-        return TheoreticalPortifolioService.get_by_index(index)
+        return TheoreticalPortifolioService.get_by_index(indexSymbol)
     
-    def delete(self, index: str) -> Response:
+    def delete(self, indexSymbol: str) -> Response:
         '''Delete all assets in a portifolio'''
         from flask import jsonify
 
-        idx = TheoreticalPortifolioService.delete_by_index(index)
-        return jsonify(dict(statis='Success', index=idx))
+        idx = TheoreticalPortifolioService.delete_by_index(indexSymbol)
+        return jsonify(dict(status='Success', indexSymbol=idx))
 
-@api.route('/<string:index>/<string:assetSymbol>')
-@api.param('index', 'Index symbol')
+@api.route('/<string:indexSymbol>/<string:assetSymbol>')
+@api.param('indexSymbol', 'Index symbol')
 @api.param('assetSymbol', 'Asset Symbol')
 class TheoreticalPortifolioIndexSymbolResource(Resource):
 
     @responds(schema=TheoreticalPortifolioSchema)
-    def get(self, index: str, assetSymbol: str) -> TheoreticalPortifolio:
+    def get(self, indexSymbol: str, assetSymbol: str) -> TheoreticalPortifolio:
         '''Get a single Asset from a Index'''
-        return TheoreticalPortifolioService.get_by_index_and_symbol(index, assetSymbol)
+        return TheoreticalPortifolioService.get_by_index_and_asset(indexSymbol, assetSymbol)
     
-    def delete(self, index: str, assetSymbol: str) -> Response:
+    def delete(self, indexSymbol: str, assetSymbol: str) -> Response:
         '''Delete a single Asset from a Index'''
         from flask import jsonify
 
-        [idx, symbol] = TheoreticalPortifolioService.delete_by_index_and_symbol(index, assetSymbol)
-        return jsonify(dict(status='Success', index=idx, symbol=symbol))
+        [idx, asset] = TheoreticalPortifolioService.delete_by_index_and_asset(indexSymbol, assetSymbol)
+        return jsonify(dict(status='Success', indexSymbol=idx, assetSymbol=asset))
 
     @accepts(schema=TheoreticalPortifolioSchema, api=api)
     @responds(schema=TheoreticalPortifolioSchema)
-    def put(self, index: str, assetSymbol: str) -> TheoreticalPortifolio:
+    def put(self, indexSymbol: str, assetSymbol: str) -> TheoreticalPortifolio:
         '''Update a single Asset from a Index'''
 
         changes: TheoreticalPortifolioInterface = request.parsed_obj
-        tp = TheoreticalPortifolioService.get_by_index_and_symbol(index, assetSymbol)
+        tp = TheoreticalPortifolioService.get_by_index_and_asset(indexSymbol, assetSymbol)
         return TheoreticalPortifolioService.update(tp, changes)
 

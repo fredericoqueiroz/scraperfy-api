@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 from typing import List
 
 from financial_data.tests.fixtures import app, db
@@ -12,23 +12,23 @@ from .service import TheoreticalPortifolioService
 def test_get_all(db: SQLAlchemy):
 
     ibov: TheoreticalPortifolio = TheoreticalPortifolio(
-        index = 'IBOV',
+        index_symbol = 'IBOV',
+        portifolio_date = date(2021,7,22),
         asset_symbol = 'PETR4',
         asset_name = 'PETROBRAS',
         asset_type = 'PN N2',
         theoretical_quantity = '4.566.457.037',
-        percentage_share = '5,133',
-        portifolio_date = '2021-01-20'
+        percentage_share = '5,133'
     )
 
     ifix: TheoreticalPortifolio = TheoreticalPortifolio(
-        index = 'IFIX',
+        index_symbol = 'IFIX',
+        portifolio_date = date(2021,7,22),
         asset_symbol = 'HGRU11',
         asset_name = 'FII CSHG URB',
         asset_type = 'CI',
         theoretical_quantity = '18.406.458',
-        percentage_share = '2,528',
-        portifolio_date = '2021-01-21'
+        percentage_share = '2,528'
     )
     
     db.session.add(ibov)
@@ -43,13 +43,13 @@ def test_get_all(db: SQLAlchemy):
 def test_update(db: SQLAlchemy):
 
     tp: TheoreticalPortifolio = TheoreticalPortifolio(
-        index = 'IFIX',
+        index_symbol = 'IFIX',
+        portifolio_date = date(2021,7,22),
         asset_symbol = 'HGRU11',
         asset_name = 'FII CSHG URB',
         asset_type = 'CI',
         theoretical_quantity = '18.406.458',
-        percentage_share = '2,528',
-        portifolio_date = '2021-01-21'
+        percentage_share = '2,528'
     )
 
     db.session.add(tp)
@@ -59,36 +59,36 @@ def test_update(db: SQLAlchemy):
 
     TheoreticalPortifolioService.update(tp, updates)
 
-    result: TheoreticalPortifolio = TheoreticalPortifolio.query.get((tp.index, tp.asset_symbol))
+    result: TheoreticalPortifolio = TheoreticalPortifolio.query.get((tp.index_symbol, tp.portifolio_date, tp.asset_symbol))
     assert result.percentage_share == '4,842'
 
-def test_delete_by_index_and_symbol(db: SQLAlchemy):
+def test_delete_by_index_and_asset(db: SQLAlchemy):
 
     ibov: TheoreticalPortifolio = TheoreticalPortifolio(
-        index = 'IBOV',
+        index_symbol = 'IBOV',
+        portifolio_date = date(2021,7,22),
         asset_symbol = 'PETR4',
         asset_name = 'PETROBRAS',
         asset_type = 'PN N2',
         theoretical_quantity = '4.566.457.037',
-        percentage_share = '5,133',
-        portifolio_date = '2021-01-20'
+        percentage_share = '5,133'
     )
 
     ifix: TheoreticalPortifolio = TheoreticalPortifolio(
-        index = 'IFIX',
+        index_symbol = 'IFIX',
+        portifolio_date = date(2021,7,22),
         asset_symbol = 'HGRU11',
         asset_name = 'FII CSHG URB',
         asset_type = 'CI',
         theoretical_quantity = '18.406.458',
-        percentage_share = '2,528',
-        portifolio_date = '2021-01-21'
+        percentage_share = '2,528'
     )
 
     db.session.add(ibov)
     db.session.add(ifix)
     db.session.commit()
 
-    TheoreticalPortifolioService.delete_by_index_and_symbol('IBOV', 'PETR4')
+    TheoreticalPortifolioService.delete_by_index_and_asset('IBOV', 'PETR4')
     db.session.commit()
 
     result: List[TheoreticalPortifolio] = TheoreticalPortifolio.query.all()
@@ -100,13 +100,13 @@ def test_delete_by_index_and_symbol(db: SQLAlchemy):
 def test_create(db: SQLAlchemy):
 
     ifix: TheoreticalPortifolio = dict(
-        index = 'IFIX',
+        index_symbol = 'IFIX',
+        portifolio_date = date(2021, 1, 21),
         asset_symbol = 'HGRU11',
         asset_name = 'FII CSHG URB',
         asset_type = 'CI',
         theoretical_quantity = '18.406.458',
-        percentage_share = '2,528',
-        portifolio_date = datetime.date(2021, 1, 21)
+        percentage_share = '2,528'
     )
 
     TheoreticalPortifolioService.create(ifix)
