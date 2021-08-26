@@ -2,7 +2,7 @@ from . import celery
 from .current_price import get_current_price_task
 from .smoke_task import smoke_task
 from .theoretical_portifolio import get_theoretical_portifolio_task
-
+from .company_indicators import get_company_indicators_task
 
 """ 
 @celery.on_after_configure.connect
@@ -21,4 +21,9 @@ def setup_theoretical_portifolio_tasks(sender, **kwargs):
     indexes = ['IBOV', 'IFIX']
     for index in indexes:
         sender.add_periodic_task(120.0, get_theoretical_portifolio_task.s(index), name=f'{index} daily theoretical portifolio')
-       
+
+@celery.on_after_configure.connect
+def setup_company_indicators_tasks(sender, **kwargs):
+    assets = ['BBAS3', 'BBSE3', 'B3SA3', 'SULA11']
+    for asset in assets:
+        sender.add_periodic_task(120.0, get_company_indicators_task.s(asset), name=f'{asset} indicators')

@@ -33,7 +33,7 @@ class ValuationIndicatorsService:
             return []
         db.session.delete(vi)
         db.session.commit()
-        return [asset_symbol.upper()]
+        return asset_symbol.upper()
     
     @staticmethod
     def create(new_attrs: ValuationIndicatorsInterface) -> ValuationIndicators:
