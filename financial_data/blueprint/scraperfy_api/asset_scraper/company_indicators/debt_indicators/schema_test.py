@@ -1,5 +1,4 @@
 import datetime
-from financial_data.blueprint.scraperfy_api.asset_scraper.company_indicators.debt_indicators.model_test import debt_indicators
 
 from pytest import fixture
 

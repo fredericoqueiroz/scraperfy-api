@@ -136,5 +136,5 @@ class TestDebtIndicatorsSymbolResource:
                 )
             )
         )
-        assert  result == expected
+        assert result == expected
 
